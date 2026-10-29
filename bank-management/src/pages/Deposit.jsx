@@ -1,9 +1,8 @@
-// import React, { useState } from 'react';
-import {Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
 
-export default function Deposit() {
+export default function Deposit({depositfunction}) {
   const [amount, setAmount] = useState('');
-  const [description, setDescription] = useState('');
   const navigate = useNavigate();
 
   const handleDepositSubmit = (e) => {
@@ -14,17 +13,10 @@ export default function Deposit() {
     }
 
     // অটোমেটিক তারিখ ও সময়সহ অবজেক্ট তৈরি
-    const newTransaction = {
-      id: Date.now(),
-      type: 'Deposit',
-      amount: Number(amount),
-      description: description || 'Account Deposit',
-      date: new Date().toLocaleDateString(),
-      time: new Date().toLocaleTimeString(),
-    };
+    const depositamount = Number(amount)
+    depositfunction(depositamount)
 
-    console.log("New Deposit Action:", newTransaction);
-    alert(`Successfully deposited ৳ ${Number(amount).toLocaleString()}!`);
+   
     
     // ডিপোজিট শেষে ড্যাশবোর্ডে রিডাইরেক্ট
     navigate('/');
@@ -60,19 +52,6 @@ export default function Deposit() {
                 required
               />
             </div>
-          </div>
-
-          <div>
-            <label className="block text-sm font-semibold text-slate-700 mb-1.5">
-              Note / Reference (Optional)
-            </label>
-            <input
-              type="text"
-              placeholder="e.g., Monthly Salary, Bonus"
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-              className="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm text-slate-800"
-            />
           </div>
 
           <button

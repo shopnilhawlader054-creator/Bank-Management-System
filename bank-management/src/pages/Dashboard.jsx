@@ -1,15 +1,12 @@
 import BalanceCard from '../components/BalanceCard';
 import { Link } from 'react-router-dom';
 
-const Dashboard = () => {
+const Dashboard = ({depositv,withdrawv,totalv}) => {
   // ডেমো ডেটা (পরবর্তীতে এগুলো স্টেট বা কন্টেক্সট থেকে আসবে)
   const accountInfo = {
     bankName: "City Bank PLC",
     accountHolder: "Shopnil Hawlader",
     accountNumber: "1029384756",
-    balance: 15400,
-    totalDeposit: 25000,
-    totalWithdraw: 9600,
   };
 
   return (
@@ -51,17 +48,17 @@ const Dashboard = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <BalanceCard 
               title="Current Balance" 
-              amount={accountInfo.balance} 
+              amount={totalv }
               type="balance" 
             />
             <BalanceCard 
               title="Total Deposited" 
-              amount={accountInfo.totalDeposit} 
+              amount={depositv} 
               type="deposit" 
             />
             <BalanceCard 
               title="Total Withdrawn" 
-              amount={accountInfo.totalWithdraw} 
+              amount={withdrawv} 
               type="withdraw" 
             />
           </div>

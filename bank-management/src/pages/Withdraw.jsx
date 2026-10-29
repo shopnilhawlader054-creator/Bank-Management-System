@@ -1,30 +1,18 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 
-export default function Withdraw() {
+export default function Withdraw({withdrawfunciton,totalv}) {
   const [amount, setAmount] = useState('');
-  const [description, setDescription] = useState('');
   const navigate = useNavigate();
 
   const handleWithdrawSubmit = (e) => {
     e.preventDefault();
-    if (!amount || Number(amount) <= 0) {
+    if (!amount || Number(amount) <= 0 || Number(amount)> Number(totalv)) {
       alert("Please enter a valid amount!");
       return;
     }
-
-    // অটোমেটিক তারিখ ও সময়সহ অবজেক্ট তৈরি
-    const newTransaction = {
-      id: Date.now(),
-      type: 'Withdraw',
-      amount: Number(amount),
-      description: description || 'Account Withdrawal',
-      date: new Date().toLocaleDateString(),
-      time: new Date().toLocaleTimeString(),
-    };
-
-    console.log("New Withdraw Action:", newTransaction);
-    alert(`Successfully withdrew ৳ ${Number(amount).toLocaleString()}!`);
+  const withdrawamounts = Number(amount)
+  withdrawfunciton(withdrawamounts)
     
     // উইথড্র শেষে ড্যাশবোর্ডে রিডাইরেক্ট
     navigate('/');
@@ -60,19 +48,6 @@ export default function Withdraw() {
                 required
               />
             </div>
-          </div>
-
-          <div>
-            <label className="block text-sm font-semibold text-slate-700 mb-1.5">
-              Reason / Reference (Optional)
-            </label>
-            <input
-              type="text"
-              placeholder="e.g., Shopping, ATM cash"
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-              className="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm text-slate-800"
-            />
           </div>
 
           <button
